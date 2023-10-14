@@ -46,6 +46,7 @@ document.body.addEventListener("keydown",(e)=>{
     if(key == " "){
         timer.classList.add("press")
     }
+    console.log(key)
 })
 
 document.body.addEventListener("keyup", (e) => {
@@ -64,5 +65,10 @@ document.body.addEventListener("keyup", (e) => {
             tomarTiempo();
         }
         timer.classList.remove("press")
+    }
+    else if (key === "Escape") {
+        clearInterval(intervalId);
+        takingTime = false;
+        timer.classList.remove("press");
     }
 });
