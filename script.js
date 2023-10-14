@@ -42,6 +42,7 @@ const tomarTiempo = () => {
 };
 
 document.body.addEventListener("keydown",(e)=>{
+    e.preventDefault()
     const key = e.key;
     if(key == " "){
         timer.classList.add("press")
@@ -50,6 +51,7 @@ document.body.addEventListener("keydown",(e)=>{
 })
 
 document.body.addEventListener("keyup", (e) => {
+    e.preventDefault()
     const key = e.key;
     if (key === " ") {
         if (takingTime) {
