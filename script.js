@@ -42,18 +42,20 @@ const tomarTiempo = () => {
 };
 
 document.body.addEventListener("keydown",(e)=>{
-    e.preventDefault()
+    
     const key = e.key;
     if(key == " "){
         timer.classList.add("press")
+        e.preventDefault()
     }
     console.log(key)
 })
 
 document.body.addEventListener("keyup", (e) => {
-    e.preventDefault()
+    
     const key = e.key;
     if (key === " ") {
+        e.preventDefault()
         if (takingTime) {
             takingTime = false;
             clearInterval(intervalId);
