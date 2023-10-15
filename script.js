@@ -1,61 +1,63 @@
-class Cube{
-    constructor(capas,contrarias,variables,scrambleElement){
-        this.capas = capas;
-        this.contrarias = contrarias;
-        this.variables = variables;
-        this.scrambleElement = scrambleElement;
-    }
 
-    Scramble(){
-        let lastMove = [];
-        let contador = 0;
-        let scramble = [];
-        for(let i = 0; i<21;i++){
-            let movimiento = this.capas[Math.floor(Math.random()*this.capas.length)] + this.variables[Math.floor(Math.random()*this.variables.length-1)];
-            if(lastMove == ""){
-                contador++;
-                lastMove.push(movimiento);
-                scramble.push(movimiento);
-                console.log(lastMove);
-            } else if(contador <2){
-                if(movimiento.startsWith(lastMove[lastMove.length-1][0])){
-                    let functionals = capas.filter(move => move.startsWith(!lastMove[lastMove.length-1][0]));
-                    console.log(functionals);
-                    movimiento = functionals[Math.floor(Math.random()*functionals.length)] + this.variables[Math.floor(Math.random()*this.variables.length)];
-                    lastMove.push(movimiento);
-                    scramble.push(movimiento);
-                    contador++;
-                } else {
-                    lastMove.push(movimiento)
-                    scramble.push(movimiento)
-                    contador++;
-                }
-            } else if(contador <= 2){
-                for(let x = 0;x < lastMove.length-1;x++){
-                    if(this.contrarias[lastMove[x][0]] == movimiento[0]){
-                        let functionals = capas.filter(move => move.startsWith(!movimiento[0]));
-                        movimiento = functionals[Math.floor(Math.random()*functionals.length)] + this.variables[Math.floor(Math.random()*this.variables.length)];
-                        lastMove = [];
-                        lastMove.push(movimiento);
-                        scramble.push(movimiento);
-                        contador = 0;
-                    }
-                }
-            }
-        }
-        scramble.forEach(e=>{
-            this.scrambleElement.innerHTML += ` ${e} `;
-        })
-    }
-}
 
 const capas = ["U", "D", "F", "B", "L", "R"];
 const contrarias = { "U": "D", "D": "U", "F": "B", "B": "F", "L": "R", "R": "L" };
 const variables = ["'", 2, ""];
 const scrambleElement = document.getElementById("scramble")
 
-rubikCube = new Cube(capas,contrarias,variables,scrambleElement);
-rubikCube.Scramble();
+const Scramble = (capas,contrarias,variables,scrambleElement)=>{
+    let lastMove = [];
+    let lastMoveSingle = "";
+    let scramble = [];
+    let contador = 0;
+    for(let i = 0;i<21;i++){
+        let movimiento = capas[Math.floor(Math.random()*capas.length)] + variables[Math.floor(Math.random()*variables.length)]; 
+        if (lastMove == ""){
+            scramble.push(movimiento);
+            lastMove.push(movimiento);
+            lastMoveSingle = movimiento;
+            contador++;
+        } else if(contador < 2){
+            if(movimiento.startsWith(lastMoveSingle[0])){
+                let functionals = capas.filter(move => move.startsWith(!lastMoveSingle[0]));
+                movimiento = functionals[Math.floor(Math.random()*functionals.length)] + variables[Math.floor(Math.random()*variables.length)];
+                scramble.push(movimiento);
+                lastMove.push(movimiento);
+                lastMoveSingle = movimiento;
+                contador++;
+            } else {
+                scramble.push(movimiento);
+                lastMove.push(movimiento);
+                lastMoveSingle = movimiento;
+                contador++;
+            }
+        } else if(contador == 2){
+            for(x=0;x<=2;x++){
+                if(contrarias[lastMove[x][0]] == movimiento){
+                    let functionals = capas.filter(move => move.startsWith(!movimiento[0]));
+                    movimiento = functionals[Math.floor(Math.random()*functionals.length)] + variables[Math.floor(Math.random()*variables.length)];
+                    scramble.push(movimiento);
+                    lastMove.push(movimiento);
+                    lastMoveSingle = movimiento;
+                    contador = 0;
+                    lastMove = [];
+                } else {
+                    scramble.push(movimiento);
+                    lastMove.push(movimiento);
+                    lastMoveSingle = movimiento;
+                    contador = 0;
+                    lastMove = [];
+                }
+            }
+        }
+        scramble.forEach(e=>{
+            scrambleElement.innerHTML += ` ${e} `
+        })
+    }
+}
+
+Scramble(capas,contrarias,variables,scrambleElement);
+
 
 const timer = document.getElementById("time");
 time = 0.00
@@ -91,7 +93,7 @@ document.body.addEventListener("keyup", (e) => {
             document.getElementById("times").innerHTML += `<tr><td>${scramble.innerHTML}</td><td>${time.toFixed(2)}</td></tr>`
             scramble.innerHTML = ""
             data = [];
-            rubikCube.Sramble();
+            Scramble(capas,contrarias,variables,scrambleElement);
         } else {
             takingTime = true;
             time = 0.00;
