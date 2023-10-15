@@ -18,8 +18,8 @@ const Scramble = (capas,contrarias,variables,scrambleElement)=>{
             lastMoveSingle = movimiento;
             contador++;
         } else if(contador < 2){
-            if(movimiento.startsWith(lastMoveSingle[0])){
-                let functionals = capas.filter(move => move.startsWith(!lastMoveSingle[0]));
+            if(movimiento[0] == lastMoveSingle[0]){
+                let functionals = capas.filter(move => move.startsWith(!movimiento[0]));
                 movimiento = functionals[Math.floor(Math.random()*functionals.length)] + variables[Math.floor(Math.random()*variables.length)];
                 scramble.push(movimiento);
                 lastMove.push(movimiento);
