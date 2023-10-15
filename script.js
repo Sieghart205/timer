@@ -1,32 +1,42 @@
 const datos = ["R","R2","R'","L","L2","L'","U","U2","U'","D","D2","D'","F","F2","F'","B","B2","B"];
 const scramble = document.getElementById("scramble");
 
-let data = []
-movimientoAnterior = "";
-firstMove = true
+let data = [];
+let movimientoAnterior = "";
 
-const Scramble = ()=>{
-    for(i = 0; i<21;i++){
-        let movimiento = datos[Math.floor(Math.random()*datos.length)];
-    if (firstMove){
-        data.push(movimiento)
-        movimientoAnterior = movimiento
-        firstMove = false
-    }
-    else if (movimiento.startsWith(movimientoAnterior[0])){
-        i --;
-    }
-    else {
-        data.push(movimiento);
-        movimientoAnterior = movimiento;
-    }
+const getRandomMove = () => {
+    return datos[Math.floor(Math.random() * datos.length)];
 }
-data.forEach (e=>{
-    scramble.innerHTML += ` ${e} `;
-})
+
+const getRandomLayerMove = (layer) => {
+    const layerMoves = datos.filter(move => move.startsWith(layer));
+    if (layerMoves.length === 0) {
+        return getRandomMove();
+    }
+    return layerMoves[Math.floor(Math.random() * layerMoves.length)];
+}
+
+const Scramble = () => {
+    const layers = ["U","F","R","L","B","D"];
+    
+    for (let i = 0; i < 21; i++) {
+        const layer = layers[Math.floor(Math.random() * layers.length)];
+        let movimiento = getRandomLayerMove(layer);
+        
+        if (i > 0 && movimiento.startsWith(movimientoAnterior[0])) {
+            i--;
+        } else {
+            data.push(movimiento);
+            movimientoAnterior = movimiento;
+        }
+    }
+
+    scramble.innerHTML = data.join(" ");
 }
 
 Scramble();
+
+
 
 const timer = document.getElementById("time");
 time = 0.00
