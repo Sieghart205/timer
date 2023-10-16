@@ -9,33 +9,33 @@ const Scramble = (capas,contrarias,variables,scrambleElement)=>{
     let functionals;
     for(let i = 0;i<21;i++){
         let movimiento = capas[Math.floor(Math.random()*capas.length)] + variables[Math.floor(Math.random()*variables.length)];
-        if(scramble == ""){
+        if(scramble === ""){
             scramble.push(movimiento);
             lastLayer = movimiento[0];
-        } else if(scramble.length !== 3 && movimiento[0] == lastLayer){
+        } else if(scramble.length != 3 && movimiento[0] === lastLayer){
             functionals = capas.filter(move => move[0] != lastLayer);
             movimiento = functionals[Math.floor(Math.random()*functionals.length)] + variables[Math.floor(Math.random()*variables.length)];
             lastLayer = movimiento[0];
             scramble.push(movimiento);
-        } else if(scramble.length !== 3 && movimiento[0] !== lastLayer){
+        } else if(scramble.length != 3 && movimiento[0] != lastLayer){
             lastLayer = movimiento[0];
             scramble.push(movimiento);
-        } else if(scramble.length == 3 && movimiento[0] == lastLayer){
+        } else if(scramble.length === 3 && movimiento[0] === lastLayer){
             let ultimasTres = scramble.slice(-3);
-            if(ultimasTres.some(capa => contrarias[capa[0]] == movimiento[0])){
+            if(ultimasTres.some(capa => contrarias[capa[0]] === movimiento[0])){
                 functionals = capas.filter(move => move[0] !== lastLayer && move[0] !== contrarias[lastLayer]);
                 movimiento = functionals[Math.floor(Math.random()*functionals.length)] + variables[Math.floor(Math.random()*variables.length)];
                 lastLayer = movimiento[0];
                 scramble.push(movimiento);
             } else {
-                functionals = capas.filter(move => move[0] !== lastLayer);
+                functionals = capas.filter(move => move[0] != lastLayer);
                 movimiento = functionals[Math.floor(Math.random()*functionals.length)] + variables[Math.floor(Math.random()*variables.length)];
                 lastLayer = movimiento[0];
                 scramble.push(movimiento);
             }
-        } else if(scramble.length == 3 && movimiento[0] !== lastLayer){
+        } else if(scramble.length === 3 && movimiento[0] != lastLayer){
             let ultimasTres = scramble.slice(-3);
-            if(ultimasTres.some(capa => contrarias[capa[0]] == movimiento[0])){
+            if(ultimasTres.some(capa => contrarias[capa[0]] === movimiento[0])){
                 functionals = capas.filter(move => move[0] !== contrarias[lastLayer]);
                 movimiento = functionals[Math.floor(Math.random()*functionals.length)] + variables[Math.floor(Math.random()*variables.length)];
                 lastLayer = movimiento[0];
