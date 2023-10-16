@@ -41,7 +41,6 @@ const Scramble = (capas,contrarias,variables,scrambleElement)=>{
                 lastLayer = movimiento[0];
                 scramble.push(movimiento);
             } else {
-                movimiento = functionals[Math.floor(Math.random()*functionals.length)] + variables[Math.floor(Math.random()*variables.length)];
                 lastLayer = movimiento[0];
                 scramble.push(movimiento);
             }
