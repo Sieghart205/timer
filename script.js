@@ -24,7 +24,7 @@ const Scramble = (capas, contrarias, variables, scrambleElement) => {
             let ultimasTres = scramble.slice(-3);
             let contrariasUltimasTres = ultimasTres.map(capa => contrarias[capa[0]]);
             
-            if (contrariasUltimasTres.includes(movimiento[0])) {
+            if (contrariasUltimasTres.includes(movimiento[0]) || contrariasUltimasTres.includes(contrarias[movimiento[0]])) {
                 functionals = capas.filter(move => !contrariasUltimasTres.includes(move[0]) && move[0] !== lastLayer);
                 movimiento = functionals[Math.floor(Math.random() * functionals.length)] + variables[Math.floor(Math.random() * variables.length)];
                 lastLayer = movimiento[0];
@@ -39,7 +39,7 @@ const Scramble = (capas, contrarias, variables, scrambleElement) => {
             let ultimasTres = scramble.slice(-3);
             let contrariasUltimasTres = ultimasTres.map(capa => contrarias[capa[0]]);
             
-            if (contrariasUltimasTres.includes(movimiento[0])) {
+            if (contrariasUltimasTres.includes(movimiento[0]) || contrariasUltimasTres.includes(contrarias[movimiento[0]])) {
                 functionals = capas.filter(move => !contrariasUltimasTres.includes(move[0]) && move[0] !== lastLayer);
                 movimiento = functionals[Math.floor(Math.random() * functionals.length)] + variables[Math.floor(Math.random() * variables.length)];
                 lastLayer = movimiento[0];
@@ -56,6 +56,7 @@ const Scramble = (capas, contrarias, variables, scrambleElement) => {
 }
 
 Scramble(capas, contrarias, variables, scrambleElement);
+
 
 
 
